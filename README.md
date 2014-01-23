@@ -1,7 +1,7 @@
 zoddjs
 ======
 
-a tiny loading bar for modernizr/yepnope.
+zodd is a tiny loading bar for modernizr/yepnope.
 
 zodd is tested in a bunch of browsers, zodd works in a bunch of browsers (even old ie).
 
@@ -9,7 +9,7 @@ zodd uses the original yepnope syntax.
 
 zodd sets css in javascript so there is only a single http request.
 
-zodd is 1.15kb minified and gzipped
+zodd is 1.15kb minified and gzipped.
 
 #### simple example
 ```html
