@@ -1,5 +1,6 @@
 /** @preserve zoddjs v0.0.2 - a tiny loading bar for modernizr/yepnope
   * copyright 2014 kevin von flotow - vonflow@gmail.com
+  * https://github.com/kvonflotow/zoddjs
   * MIT license
   */
 ( function ( window, undefined ) {
@@ -51,7 +52,7 @@
 
         this.setDefaultOpts();
 
-        this.firstBody = undefined;
+        this.opts.targetElement = undefined;
 
         this.loaderModal = doc.createElement( 'div' );
         this.loadingBar = doc.createElement( 'div' );
@@ -70,10 +71,16 @@
             // if css transitions for loadingBar are removed this does nothing
             this.opts.scrollDuration = 0.33;
 
+            this.opts.opts.targetElement = this.opts.opts.targetElement || ( function () {
+                var bodies = doc.getElementsByTagName( 'body' );
+
+                return bodies.length !== 0 ? bodies[ 0 ] : undefined;
+            })();
+
             this.opts.css = this.opts.css || {};
 
             this.opts.css.modal = extend({
-                'background': 'rgb( 233, 233, 233 )',
+                'background-color': 'rgb( 233, 233, 233 )',
                 'position': 'fixed',
                 'top': '0',
                 'bottom': '0',
@@ -98,7 +105,7 @@
             }, this.opts.css.loadingBarWrapper || {} );
 
             this.opts.css.loadingBar = extend({
-                'background': 'rgb( 69, 154, 188 )',
+                'background-color': 'rgb( 69, 154, 188 )',
                 'width': '0%',
                 'height': '100%',
                 'border-radius': '2px',
@@ -110,10 +117,7 @@
         },
 
         init: function () {
-            var bodies = doc.getElementsByTagName( 'body' ),
-                loadingBarWrapper = doc.createElement( 'div' );
-
-            this.firstBody = bodies.length !== 0 ? bodies[ 0 ] : undefined;
+            var loadingBarWrapper = doc.createElement( 'div' );
 
             this.count = this.arr.length;
 
@@ -129,7 +133,7 @@
 
             this.loaderModal.appendChild( loadingBarWrapper );
 
-            this.firstBody.appendChild( this.loaderModal );
+            this.opts.targetElement.appendChild( this.loaderModal );
 
             var that = this;
 
@@ -172,7 +176,7 @@
                 setCSS( this.loadingBar, { 'width': this.loadPercent + '%' });
 
                 if ( this.loadPercent === 100 ) {
-                    this.firstBody.setAttribute( 'data-loader-loaded', true );
+                    this.opts.targetElement.setAttribute( 'data-loader-loaded', true );
 
                     var that = this;
 
