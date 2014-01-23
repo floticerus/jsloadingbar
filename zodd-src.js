@@ -52,8 +52,6 @@
 
         this.setDefaultOpts();
 
-        this.opts.targetElement = undefined;
-
         this.loaderModal = doc.createElement( 'div' );
         this.loadingBar = doc.createElement( 'div' );
 
@@ -69,9 +67,11 @@
             // scrollDuration sets how long the default css transition
             // takes to finish for each loadingBar update
             // if css transitions for loadingBar are removed this does nothing
-            this.opts.scrollDuration = 0.33;
 
-            this.opts.opts.targetElement = this.opts.opts.targetElement || ( function () {
+            // since 0 should be a valid option do a type check instead of a truthy check
+            this.opts.scrollDuration = typeof this.opts.scrollDuration !== 'undefined' ? this.opts.scrollDuration : 0.33;
+
+            this.opts.targetElement = this.opts.targetElement || ( function () {
                 var bodies = doc.getElementsByTagName( 'body' );
 
                 return bodies.length !== 0 ? bodies[ 0 ] : undefined;
