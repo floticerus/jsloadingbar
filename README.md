@@ -12,9 +12,8 @@ zodd works off of the original yepnope syntax, so using it should basically be t
 <script>
 	// zodd always expects an array
 	new zodd([
-		'script1.js',
-		'script2.js',
-		'script3.js'
+		'style.css',
+		'script.js'
 	]);
 </script>
 ```
@@ -22,9 +21,8 @@ zodd works off of the original yepnope syntax, so using it should basically be t
 #### custom css
 ```javascript
 new zodd([
-	'script1.js',
-	'script2.js',
-	'script3.js'
+	'style.css',
+	'script.js'
 ], {
 	css: {
 		modal: {
@@ -38,5 +36,27 @@ new zodd([
 			background: 'skyblue'
 		}
 	}
+});
+```
+
+#### more
+```javascript
+new zodd([
+	{
+		load: 'style.css',
+		complete: function () {
+			console.log( 'style.css loaded' );
+		}
+	},
+	{
+		load: 'script.js',
+		complete: function () {
+			console.log( 'script.js loaded' );
+		}
+	}
+], {
+	// sets the duration of the loadingBar css transition
+	// does nothing if css transition is removed
+	scrollDuration: 1
 });
 ```
