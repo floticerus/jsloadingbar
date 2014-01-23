@@ -57,6 +57,7 @@ new zodd([
 ], {
 	// sets the duration of the loadingBar css transition
 	// does nothing if css transition is removed
+	// default is 0.33
 	scrollDuration: 1
 });
 ```
