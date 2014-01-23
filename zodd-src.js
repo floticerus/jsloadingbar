@@ -1,8 +1,13 @@
-/** @preserve zoddjs v0.0.1 - a tiny loading bar for modernizr/yepnope
+/** @preserve zoddjs v0.0.2 - a tiny loading bar for modernizr/yepnope
   * copyright 2014 kevin von flotow - vonflow@gmail.com
   * MIT license
   */
-( function ( window, yep, undefined ) {
+( function ( window, undefined ) {
+    var yep = window.Modernizr && window.Modernizr.load ? window.Modernizr.load : window.yepnope ? window.yepnope : undefined;
+
+    if ( !yep )
+        return console.error( 'zodd: modernizr or yepnope is required' );
+
     // make some shortcuts
     var doc = window.document,
         docElement = doc.documentElement;
@@ -128,7 +133,7 @@
 
             var that = this;
 
-            yep.load( ( function () {
+            yep( ( function () {
                 var ret = [];
 
                 for ( var i = 0; i < that.count; i += 1 ) {
@@ -193,4 +198,4 @@
 
     window.zodd = _zodd;
 
-})( window, Modernizr || yepnope, undefined );
+})( window, undefined );
