@@ -33,6 +33,9 @@ new zodd([
 		loadingBarWrapper: {
 			background: 'black',
 			height: '1px'
+		},
+		loadingBar: {
+			background: 'skyblue'
 		}
 	}
 });
