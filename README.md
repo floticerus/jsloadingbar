@@ -64,6 +64,12 @@ new zodd([
 	// sets the duration of the loadingBar css transition
 	// does nothing if css transition is removed
 	// default is 0.33
-	scrollDuration: 1
+	scrollDuration: 1,
+
+	// if set, zodd will contain itself within the target element.
+	// when using the default CSS options, the target must have
+	// relative position. zodd runs a test on the style and if it
+	// detects that position is not set, it will set it as relative.
+	targetElement: document.getElementById( 'target' )
 });
 ```
