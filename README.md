@@ -9,7 +9,7 @@ zodd use original yepnope syntax.
 
 zodd set css in javascript only one http request.
 
-zodd just 1.2kb minified gzipped.
+zodd just 1.32kb minified gzipped.
 
 #### simple example
 ```html
