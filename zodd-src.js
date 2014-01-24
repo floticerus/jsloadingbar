@@ -1,4 +1,4 @@
-/** @preserve zoddjs v0.0.2 - a tiny loading bar for modernizr/yepnope
+/** @preserve zoddjs v0.0.3 - a tiny loading bar for modernizr/yepnope
   * copyright 2014 kevin von flotow - vonflow@gmail.com
   * https://github.com/kvonflotow/zoddjs
   * MIT license
@@ -50,14 +50,16 @@
 
         this.opts = opts || {};
 
-        this.setDefaultOpts();
-
         this.loaderModal = doc.createElement( 'div' );
         this.loadingBar = doc.createElement( 'div' );
 
         this.loadPercent = 0;
         this.loaded = 0;
         this.count = this.arr.length;
+
+        this.noTarget = false;
+
+        this.setDefaultOpts();
 
         this.init();
     }
@@ -74,14 +76,16 @@
             this.opts.targetElement = this.opts.targetElement || ( function () {
                 var bodies = doc.getElementsByTagName( 'body' );
 
+                this.noTarget = true;
+
                 return bodies.length !== 0 ? bodies[ 0 ] : undefined;
-            })();
+            }).call( this );
 
             this.opts.css = this.opts.css || {};
 
             this.opts.css.modal = extend({
                 'background-color': 'rgb( 233, 233, 233 )',
-                'position': 'fixed',
+                'position': this.noTarget ? 'fixed' : 'absolute',
                 'top': '0',
                 'bottom': '0',
                 'left': '0',
@@ -133,6 +137,11 @@
 
             this.loaderModal.appendChild( loadingBarWrapper );
 
+            // should we even do this? hm
+            // for the default css to work on a target element, the target needs to have relative position
+            if ( !this.noTarget && !this.opts.targetElement.style[ 'position' ] )
+                setCSS( this.opts.targetElement, { 'position': 'relative' } );
+
             this.opts.targetElement.appendChild( this.loaderModal );
 
             var that = this;
@@ -152,15 +161,18 @@
                     else for ( var key in currentArr )
                         tempObj[ key ] = currentArr[ key ];
 
+                    // preserve original complete method
                     var tempComplete = tempObj.hasOwnProperty( 'complete' ) ? tempObj.complete : undefined;
 
-                    // this is broken - tempComplete is redefined as undefined by the time it fires. doh
-                    tempObj.complete = function () {
-                        if ( tempComplete )
-                            tempComplete();
+                    tempObj.complete = ( function ( tempComplete ) {
+                        return function () {
+                            that.addOneToLoaded.call( that );
 
-                        that.addOneToLoaded.call( that );
-                    };
+                            // if there was an existing complete method, fire it
+                            if ( tempComplete )
+                                tempComplete();
+                        }
+                    })( tempComplete );
 
                     ret.push( tempObj );
                 }
@@ -172,30 +184,28 @@
         addOneToLoaded: function () {
             this.loadPercent = ( ( ( this.loaded += 1 / this.count ) * 100 ) + 0.5 ) | 0;
 
-            if ( this.loaderModal ) {
-                setCSS( this.loadingBar, { 'width': this.loadPercent + '%' });
+            setCSS( this.loadingBar, { 'width': this.loadPercent + '%' });
 
-                if ( this.loadPercent === 100 ) {
-                    this.opts.targetElement.setAttribute( 'data-loader-loaded', true );
+            if ( this.loadPercent === 100 ) {
+                this.opts.targetElement.setAttribute( 'data-loader-loaded', true );
 
-                    var that = this;
+                var that = this;
 
-                    // set this first timeout for some false lag,
-                    // so it hangs at 100% for a small amount of time
-                    // default is 250 milliseconds
+                // set this first timeout for some false lag,
+                // so it hangs at 100% for a small amount of time
+                // default is 250 milliseconds
+                setTimeout( function () {
+                    setCSS( that.loaderModal, { 'opacity': '0' });
+
                     setTimeout( function () {
-                        setCSS( that.loaderModal, { 'opacity': '0' });
+                        // set display to none in case .remove() doesn't work
+                        setCSS( that.loaderModal, { 'display': 'none' });
 
-                        setTimeout( function () {
-                            // set display to none in case .remove() doesn't work
-                            setCSS( that.loaderModal, { 'display': 'none' });
-
-                            // try removing the element
-                            if ( that.loaderModal.remove )
-                                that.loaderModal.remove();
-                        }, 500 );
-                    }, 250 );
-                }
+                        // try removing the element
+                        if ( that.loaderModal.remove )
+                            that.loaderModal.remove();
+                    }, 500 );
+                }, 250 );
             }
         }
     };
