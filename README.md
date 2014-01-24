@@ -70,6 +70,9 @@ new zodd([
 	// when using the default CSS options, the target must have
 	// relative position. zodd runs a test on the style and if it
 	// detects that position is not set, it will set it as relative.
-	targetElement: document.getElementById( 'target' )
+	targetElement: document.getElementById( 'target' ),
+
+	// shortcut for the above
+	targetElementById: 'target'
 });
 ```

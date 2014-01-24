@@ -73,13 +73,17 @@
             // since 0 should be a valid option do a type check instead of a truthy check
             this.opts.scrollDuration = typeof this.opts.scrollDuration !== 'undefined' ? this.opts.scrollDuration : 0.33;
 
-            this.opts.targetElement = this.opts.targetElement || ( function () {
-                var bodies = doc.getElementsByTagName( 'body' );
+            if ( this.opts.targetElementById && isString( this.opts.targetElementById ) ) {
+                this.opts.targetElement = document.getElementById( this.opts.targetElementById );
+            } else {
+                this.opts.targetElement = this.opts.targetElement || ( function () {
+                    var bodies = doc.getElementsByTagName( 'body' );
 
-                this.noTarget = true;
+                    this.noTarget = true;
 
-                return bodies.length !== 0 ? bodies[ 0 ] : undefined;
-            }).call( this );
+                    return bodies.length !== 0 ? bodies[ 0 ] : undefined;
+                }).call( this );
+            }
 
             this.opts.css = this.opts.css || {};
 
