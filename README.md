@@ -9,7 +9,9 @@ uses original yepnope syntax.
 
 sets css in javascript, so there is only one http request.
 
-just 3.05kb minified gzipped.
+just 3.05kb minified and gzipped.
+
+MIT license.
 
 #### simple example
 ```html
