@@ -11,6 +11,8 @@ sets css in javascript, so there is only one http request.
 
 just 3.05kb minified and gzipped.
 
+current version is 0.0.4.
+
 MIT license.
 
 #### simple example
