@@ -19,7 +19,6 @@ MIT license.
 ```html
 <script src="zodd.js"></script>
 <script>
-	// zodd always expects an array
 	new zodd([
 		'style.css',
 		'script.js'
