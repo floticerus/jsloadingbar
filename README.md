@@ -1,19 +1,18 @@
 zoddjs
 ======
 
-zodd tiny loading bar for modernizr/yepnope.
+zodd is a tiny loading bar built on top of yepnope.
 
-zodd test bunch of browser, zodd work bunch of browser (even old ie).
+tested in bunch of browsers, works bunch of browser (even old ie).
 
-zodd use original yepnope syntax.
+uses original yepnope syntax.
 
-zodd set css in javascript only one http request.
+sets css in javascript, so there is only one http request.
 
-zodd just 1.32kb minified gzipped.
+just 3.05kb minified gzipped.
 
 #### simple example
 ```html
-<script src="modernizr.js"></script>
 <script src="zodd.js"></script>
 <script>
 	// zodd always expects an array
