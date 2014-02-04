@@ -1,6 +1,6 @@
 /*
  yepnope1.5.x|WTFPL
- zoddjs v0.0.4 - a tiny loading bar built on yepnope
+ zoddjs v0.0.4 - a tiny loading bar for modernizr/yepnope
  copyright 2014 kevin von flotow - vonflow@gmail.com
  https://github.com/kvonflotow/zoddjs
  MIT license
@@ -20,4 +20,4 @@ b){m(b,function(b,f){a.style.setAttribute(b,f)})}:function(a,b){m(b,function(b,f
 top:"50%",left:"0",right:"0",width:"80%",height:"5px",margin:"auto","border-radius":"2px"},this.opts.css.loadingBarWrapper||{});this.opts.css.loadingBar=t({"background-color":"rgb( 69, 154, 188 )",width:"0%",height:"100%","border-radius":"2px","-webkit-transition":"width "+this.opts.scrollDuration+"s","-moz-transition":"width "+this.opts.scrollDuration+"s","-o-transition":"width "+this.opts.scrollDuration+"s",transition:"width "+this.opts.scrollDuration+"s"},this.opts.css.loadingBar||{})},init:function(){var a=
 s.createElement("div");x(this.arr)?(this.count=1,this.arr=[{load:this.arr}]):A(this.arr)?this.count=this.arr.length:(this.count=1,this.arr=[this.arr]);l(this.loaderModal,this.opts.css.modal);l(a,this.opts.css.loadingBarWrapper);this.loadingBar=s.createElement("div");l(this.loadingBar,this.opts.css.loadingBar);a.appendChild(this.loadingBar);this.loaderModal.appendChild(a);this.noTarget||this.opts.targetElement.style.position||l(this.opts.targetElement,{position:"relative"});this.opts.targetElement.appendChild(this.loaderModal);
 var b=this;w(function(){for(var a=[],g=0;g<b.count;g+=1){var k=b.arr[g],d={};if(x(k))d={load:k};else for(var l in k)d[l]=k[l];k=d.hasOwnProperty("complete")?d.complete:n;d.complete=function(a){return function(){b.addOneToLoaded.call(b);a&&a()}}(k);a.push(d)}return a}())},addOneToLoaded:function(){this.loadPercent=100*(this.loaded+=1/this.count)+0.5|0;l(this.loadingBar,{width:this.loadPercent+"%"});if(100===this.loadPercent){this.opts.targetElement.setAttribute("data-loader-loaded",!0);var a=this;
-setTimeout(function(){l(a.loaderModal,{opacity:"0"});setTimeout(function(){l(a.loaderModal,{display:"none"});a.loaderModal.remove&&a.loaderModal.remove()},500)},250)}}};b.zodd=v})(window,void 0);
+l(a.loaderModal,{opacity:"0"});setTimeout(function(){l(a.loaderModal,{display:"none"});a.loaderModal.remove&&a.loaderModal.remove()},500)}}};b.zodd=v})(window,void 0);
