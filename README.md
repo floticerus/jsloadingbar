@@ -3,7 +3,7 @@ zoddjs
 
 zodd is a tiny loading bar built on top of yepnope.
 
-tested in bunch of browsers, works bunch of browser (even old ie).
+tested in a bunch of browsers, works in a bunch of browsers (even old ie).
 
 uses original yepnope syntax.
 
